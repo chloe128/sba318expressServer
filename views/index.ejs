@@ -8,15 +8,15 @@
   </head>
   <body>
     <div class="container">
-      <h1>All user profiles</h1>
+      <h1>All User Profiles</h1>
       <a id="newPostBtn" href="/new-user">New User</a>
-      <ul id="postsList">
+      <ul id="usersList">
         <% users.forEach(user => { %>
         <li>
           <h2><%= user.name %></h2>
           <small>User ID: <%= user.id %></small>
           <small>Email: <%= user.email %></small>
-          <a class="post" href="/new-post/<%= user.id %>">Send new post</a>
+          <a class="post" href="/new-post/<%= user.id %>">Send New Post</a>
           <form
             action="/delete-user/<%= user.id %>"
             method="POST"
@@ -24,6 +24,30 @@
           >
             <button type="submit">Delete</button>
           </form>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h1>Current Posts</h1>
+      <a id="newPostBtn" href="/new-post">New Post</a>
+      <ul id="postsList">
+        <% posts.forEach(post => { %>
+        <li>
+          <h2><%= post.title %></h2>
+          <small>Post ID: <%= post.id %></small>
+          <small>User ID: <%= post.userId %></small>
+          <p><%= post.content %></p>
+
+          <!-- Display comments for this post -->
+          <% comments.forEach(comment => { %> <% if (comment.postId === post.id)
+          { %>
+          <p>Comment: <%= comment.content %></p>
+          <% } %> <% }); %>
+
+          <a class="edit" href="/edit/<%= post.id %>">Edit</a>
+          <a class="delete" href="/api/posts/delete/<%= post.id %>">Delete</a>
         </li>
         <% }); %>
       </ul>
