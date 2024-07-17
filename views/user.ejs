@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Twitter</title>
+    <title>User Profiles</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <div class="container">
-      <h1>All user profiles</h1>
+      <h1>All User Profiles</h1>
       <a id="newPostBtn" href="/new-user">New User</a>
       <ul id="postsList">
         <% users.forEach(user => { %>
@@ -18,10 +18,11 @@
           <small>Email: <%= user.email %></small>
           <a class="post" href="/new-post/<%= user.id %>">Send new post</a>
           <form
-            action="/delete-user/<%= user.id %>"
+            action="/api/users/<%= user.id %>"
             method="POST"
             style="display: inline"
           >
+            <input type="hidden" name="_method" value="DELETE" />
             <button type="submit">Delete</button>
           </form>
         </li>
