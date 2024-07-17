@@ -33,7 +33,7 @@
       <% posts.forEach(post => { %>
       <li>
         <%= post.title %>
-        <a href="/api/posts/<%= post.id %>/edit">Edit</a>
+
         <form
           action="/api/posts/<%= post.id %>?_method=DELETE"
           method="POST"
