@@ -1,14 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import users from "./data/users.json" assert { type: "json" };
+import posts from "./data/posts.json" assert { type: "json" };
+import comments from "./data/comments.json" assert { type: "json" };
 
 const app = express();
 const port = 3000;
 
-// In-memory data for demo purposes
-const users = [{ id: 1, name: "User1" }];
-const posts = [{ id: 1, userId: 1, content: "This is a post" }];
-const comments = [{ id: 1, postId: 1, content: "This is a comment" }];
+
 
 // Middleware
 app.use(express.static("public"));
@@ -50,6 +50,18 @@ app.get("/", async (req, res) => {
       .status(500)
       .json({ message: "Error fetching data", details: error.message });
   }
+});
+
+// Create a new user
+app.post("/api/users", (req, res) => {
+  const newUser = { id: users.length + 1, ...req.body };
+  users.push(newUser);
+  res.status(201).json(newUser);
+});
+
+// Route to render the create user page
+app.get("/new-user", (req, res) => {
+  res.render("user.ejs");
 });
 
 // Start the server

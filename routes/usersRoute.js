@@ -1,10 +1,6 @@
 import express from "express";
 const router = express.Router();
-
-const users = [
-  { id: 1, name: "John Doe", email: "john@example.com" },
-  // Add more users here
-];
+import users from "../data/users.json";
 
 // Get all users
 router.get("/", (req, res) => {
