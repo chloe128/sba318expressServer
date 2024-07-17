@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create New Post</h1>
+      <form action="/api/posts" method="POST">
+        <input type="text" name="title" placeholder="Post Title" required />
+        <input type="number" name="userId" placeholder="User ID" required />
+        <textarea name="content" placeholder="Post Content" required></textarea>
+        <input type="submit" value="Create Post" />
+      </form>
+      <a href="/">Back to User Profiles</a>
+    </div>
+  </body>
+</html>

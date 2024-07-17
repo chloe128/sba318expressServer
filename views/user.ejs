@@ -9,11 +9,20 @@
   <body>
     <div class="container">
       <h1>Create New User</h1>
+      <% if (locals.user) { %>
+      <form id="editForm" method="post" action="/api/users/<%=user.id%>">
+        <input type="text" name="name" value="<%=user.name %>" />
+
+        <input type="text" name="email" value="<%=user.email %>" />
+        <button class="full-width" type="submit"><%= submit %></button>
+      </form>
+      <% } else {%>
       <form action="/api/users" method="POST">
         <input type="text" name="name" placeholder="User Name" required />
         <input type="email" name="email" placeholder="Email" required />
         <input type="submit" value="Create User" />
       </form>
+      <% } %>
       <a href="/">Back to User Profiles</a>
     </div>
   </body>

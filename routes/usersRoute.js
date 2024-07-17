@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import users from "../data/users.json";
+import users from "../data/users.json" assert { type: "json" };
 
 // Get all users
 router.get("/", (req, res) => {
@@ -15,12 +15,14 @@ router.post("/", (req, res) => {
 });
 
 // Delete a user
-router.delete("/:id", (req, res) => {
-  const userId = parseInt(req.params.id, 10);
-  const userIndex = users.findIndex((user) => user.id === userId);
+
+app.delete("/api/users/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+  const userIndex = users.findIndex(u => u.id === userId);
+
   if (userIndex !== -1) {
     users.splice(userIndex, 1);
-    res.status(204).send();
+    res.redirect("/"); // Redirect after deletion
   } else {
     res.status(404).json({ message: "User not found" });
   }

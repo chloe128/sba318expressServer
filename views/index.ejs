@@ -3,54 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Twitter</title>
+    <title>Home</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>All User Profiles</h1>
-      <a id="newPostBtn" href="/new-user">New User</a>
-      <ul id="usersList">
-        <% users.forEach(user => { %>
-        <li>
-          <h2><%= user.name %></h2>
-          <small>User ID: <%= user.id %></small>
-          <small>Email: <%= user.email %></small>
-          <a class="post" href="/new-post/<%= user.id %>">Send New Post</a>
-          <form
-            action="/delete-user/<%= user.id %>"
-            method="POST"
-            style="display: inline"
-          >
-            <button type="submit">Delete</button>
-          </form>
-        </li>
-        <% }); %>
-      </ul>
-    </div>
+    <h1>Welcome to the Blog</h1>
 
-    <div class="container">
-      <h1>Current Posts</h1>
-      <a id="newPostBtn" href="/new-post">New Post</a>
-      <ul id="postsList">
-        <% posts.forEach(post => { %>
-        <li>
-          <h2><%= post.title %></h2>
-          <small>Post ID: <%= post.id %></small>
-          <small>User ID: <%= post.userId %></small>
-          <p><%= post.content %></p>
+    <h2>Users</h2>
+    <a href="/new-user">Create New User</a>
+    <ul>
+      <% users.forEach(user => { %>
+      <li>
+        <%= user.name %>
+        <a href="/edit-user/<%= user.id %>">Edit</a>
+        <form
+          action="/api/users/<%= user.id %>?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
 
-          <!-- Display comments for this post -->
-          <% comments.forEach(comment => { %> <% if (comment.postId === post.id)
-          { %>
-          <p>Comment: <%= comment.content %></p>
-          <% } %> <% }); %>
+    <h2>Posts</h2>
+    <a href="/new-post">Create New Post</a>
+    <ul>
+      <% posts.forEach(post => { %>
+      <li>
+        <%= post.title %>
+        <a href="/api/posts/<%= post.id %>/edit">Edit</a>
+        <form
+          action="/api/posts/<%= post.id %>?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
 
-          <a class="edit" href="/edit/<%= post.id %>">Edit</a>
-          <a class="delete" href="/api/posts/delete/<%= post.id %>">Delete</a>
-        </li>
-        <% }); %>
-      </ul>
-    </div>
+    <h2>Comments</h2>
+    <ul>
+      <% comments.forEach(comment => { %>
+      <li><%= comment.text %> - <strong><%= comment.userId %></strong></li>
+      <% }) %>
+    </ul>
   </body>
 </html>
